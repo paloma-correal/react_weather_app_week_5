@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import WeatherInfo from "./WeatherInfo";
 import axios from "axios";
 import "./Weather.css";
+
 import {InputGroup , Form, Button} from "react-bootstrap"
 
 
@@ -13,27 +14,29 @@ export default function Weather(prop) {
 
         setWeatherData({
             ready: true,
+            city: response.data.city.id,
+            date: new Date(response.data.dt * 1000),
             temperature: response.data.main.temp,
-            humidity: response.data.main.humidity,
-            date: new Date (response.data.dt * 1000),
-            description: response.data.weather[0].description,
-            icon: response.data.weather[0].icon,
             wind: response.data.wind.speed,
-            city: response.data.name
+            humidity: response.data.main.humidity,
+            iconUrl: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+            description: response.data.weather[0].description,
+            
         });
+        console.log(response)
     }
 
     function search (){
-        const apiKey = "97bed167ec49bff56e6c1b63daef9c86";
+        const apiKey = "1a6432c5ca7b6f9b0bee45c98d54ea71";
         let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
         axios.get(apiUrl).then(handleResponse);
-
+        console.log(weatherData)
     }
 
 
     function handleSubmit(event) {
         event.preventDefault();
-        search(city);
+        search();
     }
 
     function handleCityChange(event){
@@ -58,7 +61,9 @@ export default function Weather(prop) {
             </Button>
           </InputGroup>  
 
-          <div></div>
+                <div>
+                    
+                </div>
                 
                 </form>
                <WeatherInfo data={weatherData} />
