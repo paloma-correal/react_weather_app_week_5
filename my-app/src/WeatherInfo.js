@@ -22,26 +22,21 @@ export default function WeatherInfo (props) {
                 <div className="clearfix">
                 <div className="float-left">
 
-                <WeatherIcon code={props.data.icon}/>
-    
+                <WeatherIcon code={props.data.icon} size={52} />
+            </div>
 
-                <WeatherTemperature celsius={props.data.temperature}/>
-
-
-                <span className="temperature"> {Math.round(props.data.temperature)} </span>
-                <span className="unit"></span>
-                
-                <ul>
-                    <li> Precipitation: 15% </li>
-                    <li> Humidity: {props.data.humidity}% </li>
-                    <li> Wind: {props.data.wind} mph</li>
-
-                </ul>
-    
-                 </div>    
-                </div>
-                </div>
-                </div>
-                </div>
-    )
+            <div className="float-left">
+              <WeatherTemperature celsius={props.data.temperature} />
+            </div>
+          </div>
+        </div>
+        <div className="col-6">
+          <ul>
+            <li>Humidity: {props.data.humidity}%</li>
+            <li>Wind: {props.data.wind} km/h</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 }
